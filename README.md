@@ -22,7 +22,10 @@ El objetivo principal que se persigue satisfacer con el presente proyecto es el 
 Para llevar a cabo dicho objetivo, se hará uso de entornos de programación tales como NodeRed y Arduino, siendo la primera la principal donde se desarrollará la lógica de programación que rija nuestro proyecto, y quedando por tanto la segunda destinada a la programación de cada parte individual del sistema de domotización.
 
 Para hacer aún más cercana y realista al usuario la experiencia del sistema de domotización se ha creado un entorno de desarrollo para el mismo dentro de una Raspberry Pi 3b+, lo cual tal y como se explicará más adelante facilitará el acceso remoto a su sistema local, dando así la posibilidad a dicho usuario de poder gestionar el control y la seguridad de su vivienda desde cualquier parte.
-![Alt text](/fotos/image.png)
+
+<p align="center">
+  <img src="/fotos/image.png">
+</p>
 
 ## Configuración del entorno de desarrollo
 
