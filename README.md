@@ -633,6 +633,7 @@ Para esto último, en la función conectaWifi() se configura una IP estática de
 
 Este programa es el encargado de controlar el motor de la cámara. Para ello, se definen primero los pines que se van a usar, siendo los siguientes:
 
+```arduino
 const int IN1 = 2;
 const int IN2 = 3;
 const int IN3 = 4;
@@ -640,6 +641,9 @@ const int IN4 = 5;
 const int buttonPin = 6;
 const int left = 7;
 const int rigth = 8;
+```
+
+
 
 Los pines INX son los que se conectan al driver ULN2003A del motor, y los que se declaran como tal en la instancia del motor paso a paso dentro del código. El “buttonPin” es la entrada que recoge las pulsaciones del final de carrera del circuito. Los pines “left” y “rigth” son los que reciben la codificación de órdenes desde la ESP32 Wrover Cam, que hace de pasarela MQTT en este caso.
 
@@ -657,15 +661,13 @@ Este programa es el encargado de convertir las consignas de los joysticks del ma
 
 Para este programa, primero se declaran todos los topics necesarios, siendo los siguientes:
 
-Topic publicación comando de cámara: 	
-	II10/ESP 36221669107172/mando/piero
-Topic publicación comando de robot móvil: 	
-	II10/ESP 36221669107172/mando/camara
-Topic publicación de conexión:
-	II10/ESP 36221669107172/mando/conexion
+- Topic publicación comando de cámara: II10/ESP 36221669107172/mando/piero
+- Topic publicación comando de robot móvil: II10/ESP 36221669107172/mando/camara
+- Topic publicación de conexión: II10/ESP 36221669107172/mando/conexion
 
 Además, se definen también los pines que van a ser usados:
 
+```arduino
 const int pinRojo = 5;
 const int pinVerde = 18;
 
@@ -676,6 +678,7 @@ const int pinButtonCamara = 17;
 const int pinxPiero = 34;
 const int pinyPiero = 39;
 const int pinButtonPiero = 16;
+```
 
 El primer grupo de pines son los correspondientes a los leds de indicación del estado de conexión. El segundo, son los correspondientes a los pines de lectura del joystick de la cámara, y el tercero son los correspondientes a los pines de lectura del joystick del robot móvil.
 
