@@ -17,7 +17,7 @@
    - [Diagrama de bloques o flujo del programa](#diagrama-de-bloques-o-flujo-del-programa)
    - [Descripción del funcionamiento](#descripción-del-funcionamiento)
    - [Descripción de los códigos de Arduino](#descripción-de-los-códigos-de-arduino)
-     - [Librerías usadas](#librerías-usadas)
+   - [Librerías usadas](#librerías-usadas)
    - [Descripción de los flujos de NodeRed](#descripción-de-los-flujos-de-nodered)
 6. [Diseño software del sistema de seguridad](#diseño-software-del-sistema-de-seguridad)
    - [Diagrama de bloques o flujo de programa](#diagrama-de-bloques-o-flujo-de-programa)
