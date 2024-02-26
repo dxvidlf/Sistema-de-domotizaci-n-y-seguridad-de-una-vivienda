@@ -244,6 +244,7 @@ Cuando la luz incide sobre el fotorresistor, su resistencia disminuye, y cuando 
 <p align="center">
   <img src="/fotos/image-17.png">
 </p>
+
 ### Panel de teclado numérico matricial de membrana 4x4
 
 Se trata de un dispositivo de entrada que consiste en una matriz de botones dispuestos en filas y columnas. Este teclado es utilizado para introducir datos numéricos. Permite ofrecer múltiples entradas a través de una conexión sencilla lo que lo hace ideal para aplicaciones como control de acceso, sistemas de seguridad.
@@ -926,6 +927,7 @@ En esta sección encontramos toda la información referente al estado de la segu
 <p align="center">
   <img src="/fotos/image-62.png">
 </p>
+
 ### Panel de datos del ambiente
 
 En esta sección encontramos toda la información referente al ambiente de la vivienda:
@@ -1001,6 +1003,7 @@ También se puede configurar el atajo para su uso con la función nativa de IOS 
 
 Finalmente, solo resta asegurarnos de que la automatización está activada. Si es así, a partir de ese momento nos llegará un mensaje del bot de Telegram cada vez que salgamos de casa recordando el encendido de la alarma, quedando el sistema de seguridad automáticamente habilitado, tal y como se ve en la siguiente figura.
 
-![Alt text](/fotos/image-68.png)
-
+<p align="center">
+  <img src="/fotos/image-68.png">
+</p>
 
