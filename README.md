@@ -127,7 +127,9 @@ Con esto, y tras la respectiva configuración inicial de Docker y Portainer (la 
 Para la instalación de todos los contenedores utilizados en este proyecto, se ha seguido la siguiente metodología:
 
 •	Búsqueda del contenedor necesario y su versión compatible con arm64 (la arquitectura de nuestra Raspberry) en Docker Hub.
+
 •	Configuración de la pila de lanzamiento del contenedor, donde entre otras cosas se especifica la política de reinicio, los puertos expuestos, las variables de entorno necesarias, los volúmenes necesarios, etc.
+
 •	Lanzamiento del contenedor y verificación de su funcionamiento.
 
 Los contenedores instalados son los siguientes:
