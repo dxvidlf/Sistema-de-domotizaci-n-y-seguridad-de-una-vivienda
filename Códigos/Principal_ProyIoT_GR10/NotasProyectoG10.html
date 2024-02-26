@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Bibliotecas Incluidas</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h2 id="bibliotecas-incluidas">Bibliotecas Incluidas</h2>
+<ul>
+<li>
+<p><code>&lt;string&gt;</code>:</p>
+<ul>
+<li>Proporciona funcionalidades para el manejo de cadenas de texto en C++. Es útil para operaciones como concatenación, comparación, y otras manipulaciones de strings que puedas necesitar.</li>
+</ul>
+</li>
+<li>
+<p><code>&lt;ESP8266WiFi.h&gt;</code>:</p>
+<ul>
+<li>Esencial para conectar el ESP8266 a una red WiFi. Permite realizar tareas como conectarse a una red, manejar conexiones, obtener información de la red, etc. Es la base para cualquier comunicación de red que hagas con el ESP8266.</li>
+</ul>
+</li>
+<li>
+<p><code>&lt;PubSubClient.h&gt;</code>:</p>
+<ul>
+<li>Esta biblioteca permite al ESP8266 comunicarse usando el protocolo MQTT, que es muy popular en IoT para el envío de mensajes entre dispositivos. Facilita publicar y suscribirse a topics MQTT, lo que es crucial para la interacción entre tu dispositivo y un broker MQTT.</li>
+</ul>
+</li>
+<li>
+<p><code>&lt;ArduinoJson.h&gt;</code>:</p>
+<ul>
+<li>Proporciona un manejo eficiente de objetos JSON, lo cual es muy útil para el intercambio de datos en proyectos IoT. Puedes usarla para parsear datos recibidos en formato JSON o para crear JSONs para enviar datos.</li>
+</ul>
+</li>
+<li>
+<p><code>&lt;ESP8266httpUpdate.h&gt;</code>:</p>
+<ul>
+<li>Facilita la actualización del firmware a través de HTTP (OTA - Over The Air). Esto permite que tu dispositivo ESP8266 se actualice remotamente sin necesidad de una conexión física al ordenador.</li>
+</ul>
+</li>
+<li>
+<p><code>&quot;Button2.h&quot;</code>:</p>
+<ul>
+<li>Una biblioteca para manejar interacciones con botones. Permite detectar clics simples, dobles, largos, etc., y es muy útil para interfaces de usuario sencillas.</li>
+</ul>
+</li>
+</ul>
+<h2 id="definiciones-y-constantes">Definiciones y Constantes</h2>
+<ul>
+<li>
+<p><strong><code>__HTTPS__</code></strong>:</p>
+<ul>
+<li>Se usa para habilitar o deshabilitar características específicas de HTTPS.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>BUTTON_PIN</code></strong>:</p>
+<ul>
+<li>Define el pin del GPIO al que está conectado el botón, en este caso, el GPIO 0.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>OTA_URL</code></strong>:</p>
+<ul>
+<li>Define la URL del servidor de actualizaciones OTA. Es la dirección a la que el ESP8266 se conectará para buscar y descargar actualizaciones de firmware. Esta url es <a href="https://iot.ac.uma.es:1880/esp8266-ota/update">https://iot.ac.uma.es:1880/esp8266-ota/update</a>.  Si queremos actualizar el dispositivo mediante OTA podemos acerlo publicando el archivo binario compilado en la direccion: <a href="https://iot.ac.uma.es:1880/esp8266-ota">https://iot.ac.uma.es:1880/esp8266-ota</a></li>
+</ul>
+</li>
+<li>
+<p><strong><code>FW_BOARD_NAME</code></strong>:</p>
+<ul>
+<li>Para versiones del IDE &lt; 2.0 poner en FW_BOARD_NAME el identificador de la placa, por ejemplo &quot;.nodemcu&quot;, ver nombre del binario generado para conocer identificador utilizado. Para versiones del IDE &gt;= 2.0 dejar vacío.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>HTTP_OTA_VERSION</code></strong>:</p>
+<ul>
+<li>Se usa para identificar la versión actual del firmware, para el proceso de actualización OTA.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>DEBUG_STRING</code></strong>:</p>
+<ul>
+<li>Una macro útil para el debug. Agrega el nombre de la función y el número de línea al mensaje de depuración, lo que facilita rastrear dónde ocurren problemas o eventos en el código.</li>
+</ul>
+</li>
+</ul>
+<h2 id="instancias-y-objetos">Instancias y Objetos</h2>
+<h3 id="wificlient"><code>WiFiClient</code></h3>
+<ul>
+<li><strong>Biblioteca:</strong> ESP8266WiFi</li>
+<li><strong>Propósito:</strong> Crear un cliente que puede conectarse a un servidor a través de WiFi.</li>
+<li><strong>Descripción:</strong> <code>WiFiClient</code> es una clase que se utiliza para manejar la conexión de red. El objeto <code>wClient</code> actúa como un cliente de red en este contexto.</li>
+</ul>
+<h3 id="pubsubclient"><code>PubSubClient</code></h3>
+<ul>
+<li><strong>Biblioteca:</strong> PubSubClient</li>
+<li><strong>Propósito:</strong> Utilizado para la comunicación MQTT.</li>
+<li><strong>Descripción:</strong> <code>PubSubClient</code>, inicializado con <code>wClient</code>, conecta el ESP8266 a un broker MQTT. Permite publicar mensajes a topics MQTT y suscribirse para recibir mensajes.</li>
+</ul>
+<h3 id="button2"><code>Button2</code></h3>
+<ul>
+<li><strong>Biblioteca:</strong> Button2</li>
+<li><strong>Propósito:</strong> Manejar interacciones con botones físicos.</li>
+<li><strong>Descripción:</strong> <code>Button2</code> gestiona un botón físico conectado al ESP8266. Permite detectar y manejar distintos tipos de pulsaciones como clics simples, dobles, y largos.</li>
+</ul>
+<h3 id="adc_modeadc_vcc"><code>ADC_MODE(ADC_VCC)</code></h3>
+<p>Configura el ADC para que en lugar de leer de un pin analógico externo, lea el voltaje de alimentación del ESP8266.</p>
+<h2 id="función-conecta_wifi">Función <code>conecta_wifi</code></h2>
+<h3 id="descripción">Descripción</h3>
+<p>Esta función establece la conexión WiFi del dispositivo ESP8266 a una red especificada. Se utiliza para conectar el dispositivo a internet o a una red local.</p>
+<h2 id="función-conecta_wifi-1">Función <code>conecta_wifi</code></h2>
+<h3 id="descripción-1">Descripción</h3>
+<p>Esta función establece la conexión WiFi del dispositivo ESP8266 a una red especificada. Se utiliza para conectar el dispositivo a internet o a una red local.</p>
+<h3 id="detalles-del-proceso">Detalles del Proceso</h3>
+<ol>
+<li>
+<p><strong>Inicio de Conexión:</strong><br>
+Primero, se imprime un mensaje en el puerto serie (<code>Serial.println</code>) para indicar que se está iniciando el proceso de conexión a la red WiFi.</p>
+</li>
+<li>
+<p><strong>Configuración del Modo WiFi:</strong><br>
+Se configura el módulo WiFi en modo estación (<code>WIFI_STA</code>). Este modo permite que el ESP8266 funcione como un cliente WiFi, conectándose a una red WiFi existente.</p>
+</li>
+<li>
+<p><strong>Establecimiento de la Conexión:</strong><br>
+Se inicia la conexión WiFi utilizando las credenciales de la red (<code>ssid</code> y <code>password</code>) mediante <code>WiFi.begin</code>.</p>
+</li>
+<li>
+<p><strong>Bucle de Espera:</strong><br>
+Se entra en un bucle que se ejecuta mientras el estado de la conexión WiFi no sea <code>WL_CONNECTED</code>. Durante este bucle, se realiza una pausa de 200 milisegundos entre cada verificación del estado de la conexión, para evitar la saturación del procesador y proporcionar tiempo para que la conexión se establezca. Mientras espera, imprime puntos en el puerto serie como indicador de progreso.</p>
+</li>
+<li>
+<p><strong>Conexión Establecida:</strong><br>
+Una vez que el dispositivo se ha conectado con éxito a la red WiFi, sale del bucle y finaliza la función, indicado por un salto de línea en el puerto serie (<code>Serial.println</code>).</p>
+</li>
+</ol>
+<h2 id="función-conecta_mqtt">Función <code>conecta_mqtt</code></h2>
+<h3 id="descripción-2">Descripción</h3>
+<p>Establece y mantiene la conexión del dispositivo ESP8266 con un broker MQTT. Esta función intenta conectarse al broker MQTT y se suscribe a varios topics para la comunicación.</p>
+<h3 id="proceso-de-la-función">Proceso de la Función</h3>
+<ol>
+<li>
+<p><strong>Bucle de Conexión:</strong></p>
+<ul>
+<li>La función entra en un bucle que se repite hasta que se establece una conexión con el broker MQTT.</li>
+</ul>
+</li>
+<li>
+<p><strong>Intento de Conexión:</strong></p>
+<ul>
+<li>En cada iteración del bucle, intenta establecer una conexión con el broker MQTT, utilizando el ID de la placa (<code>ID_PLACA</code>) como identificador del cliente MQTT.</li>
+</ul>
+</li>
+<li>
+<p><strong>Suscripciones MQTT:</strong></p>
+<ul>
+<li>Una vez establecida la conexión, el cliente MQTT se suscribe a una serie de topics, que incluyen topics para la publicación y recepción de datos, comandos, y actualizaciones de estado.</li>
+</ul>
+</li>
+<li>
+<p><strong>Publicación de Estado de Conexión:</strong></p>
+<ul>
+<li>Después de conectarse y suscribirse a los topics necesarios, publica un mensaje en un topic específico para confirmar la conexión exitosa.</li>
+</ul>
+</li>
+<li>
+<p><strong>Manejo de Errores:</strong></p>
+<ul>
+<li>Si la conexión falla, se imprime un mensaje de error en el puerto serie y se espera 5 segundos antes de reintentar, para evitar intentos continuos de reconexión.</li>
+</ul>
+</li>
+</ol>
+<h2 id="función-procesa_mensaje">Función <code>procesa_mensaje</code></h2>
+<h3 id="descripción-3">Descripción</h3>
+<p>Maneja los mensajes recibidos a través de MQTT, ejecutando acciones basadas en el topic y el contenido del mensaje.</p>
+<h3 id="funcionamiento">Funcionamiento</h3>
+<ul>
+<li>
+<p><strong>Parámetros:</strong></p>
+<ul>
+<li><code>char *topic</code>: Topic MQTT donde se publicó el mensaje.</li>
+<li><code>byte *payload</code>: Cuerpo del mensaje.</li>
+<li><code>unsigned int length</code>: Longitud del mensaje.</li>
+</ul>
+</li>
+<li>
+<p><strong>Proceso:</strong></p>
+<ol>
+<li>
+<p><strong>Conversión del Mensaje:</strong></p>
+<ul>
+<li>Convierte el <code>payload</code> en una cadena <code>String</code> para facilitar su procesamiento.</li>
+</ul>
+</li>
+<li>
+<p><strong>Impresión del Mensaje:</strong></p>
+<ul>
+<li>Imprime el mensaje recibido y el topic correspondiente en el puerto serie.</li>
+</ul>
+</li>
+<li>
+<p><strong>Manejo de Diferentes Topics:</strong></p>
+<ul>
+<li>
+<p>Utiliza condicionales para procesar el mensaje según el topic.</p>
+</li>
+<li>
+<p><strong>Control del Motor (<code>topic_SUB_motor_cmd</code>):</strong></p>
+<ul>
+<li>Deserializa el JSON del mensaje.</li>
+<li>Establece la intensidad del motor basándose en el valor recibido.</li>
+<li>Si hay un error en la deserialización, imprime un mensaje de error.</li>
+</ul>
+</li>
+<li>
+<p><strong>Control del Switch (<code>topic_SUB_switch_cmd</code>):</strong></p>
+<ul>
+<li>Deserializa el JSON y obtiene el estado deseado del switch.</li>
+<li>Cambia el estado de el GPIO al que esta conectado el LED.</li>
+<li>Publica el estado actual del switch en el topic correspondiente.</li>
+<li>En caso de error en la deserialización, informa mediante un mensaje de error.</li>
+</ul>
+</li>
+<li>
+<p><strong>Control de la Alarma (<code>topic_SUB_alarm_cmd</code>):</strong></p>
+<ul>
+<li>Deserializa el mensaje para determinar el estado de la alarma.</li>
+<li>Activa o desactiva la alarma basándose en el mensaje.</li>
+<li>Publica el estado de la alarma en el topic correspondiente.</li>
+<li>Informa sobre errores en la deserialización si los hay.</li>
+</ul>
+</li>
+<li>
+<p><strong>Actualización FOTA (<code>topic_SUB_FOTA</code>):</strong></p>
+<ul>
+<li>Deserializa el mensaje para obtener la orden de actualización FOTA.</li>
+<li>Actualiza el valor de la variable booleana para iniciar la actualización FOTA si es necesario.</li>
+<li>Informa sobre errores en la deserialización.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="función-intenta_ota">Función <code>intenta_OTA</code></h2>
+<h3 id="descripción-4">Descripción</h3>
+<p>Esta función maneja el proceso de actualización Over-The-Air (OTA) del firmware en el dispositivo ESP8266.</p>
+<h3 id="detalles-del-proceso-1">Detalles del Proceso</h3>
+<ol>
+<li>
+<p><strong>Inicio de la Actualización:</strong></p>
+<ul>
+<li>La función inicia informando a través del puerto serie que se está comprobando si hay actualizaciones disponibles, mostrando la URL de donde se descargará la actualización.</li>
+</ul>
+</li>
+<li>
+<p><strong>Configuración de Callbacks:</strong></p>
+<ul>
+<li>Configura funciones específicas (<code>callbacks</code>) para diferentes eventos durante el proceso OTA, como el inicio, error, progreso y finalización de la actualización.</li>
+</ul>
+</li>
+<li>
+<p><strong>Configuración del Cliente WiFi:</strong></p>
+<ul>
+<li>Dependiendo de si se está utilizando HTTPS o no, se configura un <code>WiFiClientSecure</code> o un <code>WiFiClient</code> respectivamente.</li>
+</ul>
+</li>
+<li>
+<p><strong>Proceso de Actualización:</strong></p>
+<ul>
+<li>Utiliza la biblioteca <code>ESPhttpUpdate</code> para intentar descargar y actualizar el firmware.</li>
+<li>Toma como parámetros el cliente WiFi, la URL de actualización y la versión actual del firmware.</li>
+</ul>
+</li>
+<li>
+<p><strong>Manejo de Resultados de la Actualización:</strong></p>
+<ul>
+<li>Gestiona los diferentes resultados del intento de actualización:
+<ul>
+<li><code>HTTP_UPDATE_FAILED</code>: Informa si la actualización ha fallado, mostrando el error correspondiente.</li>
+<li><code>HTTP_UPDATE_NO_UPDATES</code>: Indica que el dispositivo ya tiene la última versión del firmware.</li>
+<li><code>HTTP_UPDATE_OK</code>: Confirma que la actualización se ha completado con éxito.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="función-singleclick">Función <code>singleClick</code></h2>
+<h3 id="descripción-5">Descripción</h3>
+<p>Gestiona la acción de un clic simple en el botón de flash.</p>
+<h3 id="funcionamiento-1">Funcionamiento</h3>
+<ul>
+<li>Al detectar un clic simple, la función imprime un mensaje de confirmación.</li>
+<li>Cambia el estado de <code>intensidadDeseada</code>:
+<ul>
+<li>Si <code>intensidadDeseada</code> es 0 (indicando que está apagado), lo establece al valor de <code>intensidadPrevia</code> (encendiendo el dispositivo).</li>
+<li>Si <code>intensidadDeseada</code> no es 0 (indicando que está encendido), guarda el valor actual en <code>intensidadPrevia</code> y lo establece a 0 (apagando el dispositivo).</li>
+</ul>
+</li>
+</ul>
+<h2 id="función-longclick">Función <code>longClick</code></h2>
+<h3 id="descripción-6">Descripción</h3>
+<p>Maneja la acción de un clic largo en el botón de flash.</p>
+<h3 id="funcionamiento-2">Funcionamiento</h3>
+<ul>
+<li>Al detectar un clic largo, imprime un mensaje &quot;long click&quot; en el puerto serie para indicar la acción.</li>
+<li>Llama a la función <code>intenta_OTA()</code>, iniciando así el proceso de actualización del firmware Over-The-Air (OTA).</li>
+</ul>
+<h2 id="función-doubleclick">Función <code>doubleClick</code></h2>
+<h3 id="descripción-7">Descripción</h3>
+<p>Responde a un doble clic en un botón.</p>
+<h3 id="funcionamiento-3">Funcionamiento</h3>
+<ul>
+<li>Al detectar un doble clic, la función imprime &quot;double click&quot; en el puerto serie.</li>
+<li>Establece <code>intensidadDeseada</code> en 100, lo que representa la activación del motor al 100% de intensidad.</li>
+</ul>
+<h2 id="función-loop">Función <code>loop</code></h2>
+<h3 id="descripción-8">Descripción</h3>
+<p>Esta función es el núcleo del programa, ejecutándose repetidamente para manejar conexiones MQTT, interacciones de botones, y actualizar datos y estados.</p>
+<h3 id="funcionamiento-4">Funcionamiento</h3>
+<ol>
+<li>
+<p><strong>Gestión de la Conexión MQTT:</strong></p>
+<ul>
+<li>Verifica si el cliente MQTT está conectado.</li>
+<li>Si no está conectado, intenta reconectar utilizando la función <code>conecta_mqtt</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Manejo de Eventos de Botones:</strong></p>
+<ul>
+<li>Llama a <code>button.loop()</code> para que la librería Button2 procese cualquier evento de botón ocurrido.</li>
+</ul>
+</li>
+<li>
+<p><strong>Envío de Datos:</strong></p>
+<ul>
+<li>Envía datos periódicamente (cada 2000 milisegundos).</li>
+<li>Enciende un LED para indicar que está enviando datos.</li>
+<li>Recopila y envía información como tiempo de funcionamiento, voltaje, estado de sensores, y datos de conexión WiFi.</li>
+<li>Apaga el LED tras enviar los datos.</li>
+</ul>
+</li>
+<li>
+<p><strong>Control de Intensidad del Motor:</strong></p>
+<ul>
+<li>Ajusta gradualmente la intensidad del motor a una velocidad de 1% cada 10 milisegundos.</li>
+<li>Publica el nuevo estado del motor en un topic MQTT cuando se alcanza la intensidad deseada.</li>
+</ul>
+</li>
+</ol>
+
+        
+        
+    </body>
+    </html>
