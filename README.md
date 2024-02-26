@@ -615,18 +615,12 @@ La función conecta_wifi() inicia la conexión con las credenciales hasta que la
 
 Los topics de publicación y suscripción a los que nos conectamos son:
 
-Topic publicación conexión: 	
-	II10/ESP 193997127210196/camara/conexion
-Topic publicación flash: 	
-	II10/ESP 193997127210196/camara/responseFlash
-Topic publicación comando de foto rutinaria: 
-	II10/ESP 193997127210196/camara/fotoRutinaria
-Topic subscripción comando flash: 
-	II10/ESP 193997127210196/camara/requestFlash
-Topic subscripción tiempo de foto de seguridad: 
-	II10/ESP 193997127210196/camara/tiempo
-Topic subscripción comandos de movimiento de cámara:
-	II10/ESP 36221669107172/mando/camara
+- Topic publicación conexión: II10/ESP 193997127210196/camara/conexion
+- Topic publicación flash: II10/ESP 193997127210196/camara/responseFlash
+- Topic publicación comando de foto rutinaria: II10/ESP 193997127210196/camara/fotoRutinaria
+- Topic subscripción comando flash: II10/ESP 193997127210196/camara/requestFlash
+- Topic subscripción tiempo de foto de seguridad: II10/ESP 193997127210196/camara/tiempo
+- Topic subscripción comandos de movimiento de cámara:II10/ESP 36221669107172/mando/camara
 
 La función es la de procesa_mensaje() se encarga de recibir el topic y el payload de los mensajes entrantes, para realizar las acciones pertinentes con los actuadores conectados a la placa. Atiende a las peticiones de encendido y apagado del flash de la cámara, a la actualización del tiempo de toma de fotos de seguridad, y a los comandos de movimiento del motor de la cámara, los cuales son codificados y pasados al Arduino Nano a través de los pines definidos como “left” y “rigth”. Realmente, la cámara tiene pines libres suficientes como para poder administrar por si misma el conexionado con el motor paso a paso. Sin embargo, el programa diseñado para el control de dicho motor hace que la rutina principal de la cámara (la gestión del servidor local donde implementa el video en streaming) quede congelada, por lo que se releva la tarea del control del motor al Arduino Nano de cara a tener un flujo de video constante durante el movimiento del motor de la cámara.
 
