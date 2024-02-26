@@ -45,10 +45,12 @@ Tras la configuración del sistema, se configura una de las cosas más important
 
 Para llevar a cabo esta tarea, accedemos al archivo /etc/dhcpcd.conf, y creamos la interfaz de red correspondiente para asignar la dirección IP estática. Es importante asignar una dirección alta, para evitar posibles conflictos en la asignación dinámica de IPs del servidor DHCP de nuestro router, aunque posteriormente solucionaremos esto. Nuestra interfaz configurada consta de las siguientes líneas.
 
+```shell
 interface eth0
 static ip_address=192.168.1.254/24
 static routers=192.168.1.1
-static domain_name_servers=192.168.1.1 8.8.8.8 
+static domain_name_servers=192.168.1.1 8.8.8.8
+```
 
 <p align="center">
   <img src="/fotos/image-2.png">
@@ -67,14 +69,14 @@ Sin embargo, Docker no dispone actualmente de una interfaz de usuario para Linux
 
 Para la instalación de Docker, simplemente hay que ejecutar el siguiente comando en la terminal.
 
+```shell
 curl -fsSL https://get.docker.com | sh
-
+```
 Para la instalación de Portainer hay que ejecutar los siguientes comandos.
-
+```shell
 sudo docker pull portainer/portainer-ce:latest
-
 sudo docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
-
+```
 Con esto, y tras la respectiva configuración inicial de Docker y Portainer (la cuál no se va a explicar en este proyecto ya que lo alargaría en exceso), obtenemos una interfaz de usuario accesible desde el área local como la siguiente. Desde ahí, se pueden acceder a todos los contenedores para detenerlos, reiniciarlos o lanzarlos, ver los logs de cada uno, ejecutar comandos como usuario root, etc.
 
 <p align="center">
@@ -405,6 +407,7 @@ Las funciones que se busca cubrir son las relacionadas con el sistema de alarma 
 
 En primer lugar, se inicializan todas las constantes y variables necesarias para el programa, entre ellas las relacionadas con la conexión (wifi y MQTT), los topics para el envío de los mensajes MQTT y los puertos GPIO que se usan en la placa que son:
 
+```arduino
 int LED2 = 16;       // D0
 int GPIO_Movim = 5;  // D1
 int GPIO_LED = 4;    // D2
@@ -413,7 +416,7 @@ int LED1 = 2;        // D4
 int GPIO_Motor = 14; // D5
 int GPIO_MQ6 = 12;   // D6
 int GPIO_MQ7 = 13;   // D7
-
+```
 La función de setup es la primera que se ejecuta en el código y en ella se inicializan todos los pines GPIO como entrada o salida según su función, también los procesos de conexión a la red WiFi y configuración del cliente MQTT (junto con la función de callback para el envío de mensajes MQTT) y se muestra la información de inicio del programa. También se inicializan las funciones del botón flash de la placa con la librería Button2 y, por último, se busca una actualización FOTA (Firmware Over the Air) para actualizar el código de la placa su hubiera alguna versión disponible.
 
 Una vez se ha completado el setup, pasamos al bucle de ejecución principal. En cada una de sus iteraciones se hace lo siguiente:
@@ -428,18 +431,15 @@ Para realizar esto, en el código se definen algunas funciones que se encargan d
 
 La función conecta_wifi() inicia la conexión con las credenciales hasta que la conexión sea exitosa. De igual forma, la función conecta_mqtt() inicia la conexión con el broker con las credenciales establecidas y, si falla, lo reintenta cada 5 segundos hasta un máximo de 6 veces. Si falla el intento de conexión 6 veces, reinicia la placa para volver a iniciar y hacer de nuevo el setup. Los topics de publicación y suscripción a los que nos conectamos son:
 
-Topic publicacion conexión: 	II10/ESP4173425/conexion
-Topic publicacion datos:
-II10/ESP4173425/datos
-Topic publicacion motor : 	II10/ESP4173425/motor/status
-Topic suscripcion motor :
-II10/ESP4173425/motor/cmd
-Topic publicacion switch : 	II10/ESP4173425/switch/status
-Topic suscripcion switch : 	II10/ESP4173425/switch/cmd
-Topic publicacion alarma : 	II10/ESP4173425/alarm/status
-Topic suscripcion alarma : 	II10/ESP4173425/alarm/cmd
-Topic suscripcion FOTA :
-II10/ESP4173425/FOTA
+- Topic publicacion conexión: II10/ESP4173425/conexion
+- Topic publicacion datos: II10/ESP4173425/datos
+- Topic publicacion motor : II10/ESP4173425/motor/status
+- Topic suscripcion motor : II10/ESP4173425/motor/cmd
+- Topic publicacion switch : II10/ESP4173425/switch/status
+- Topic suscripcion switch : II10/ESP4173425/switch/cmd
+- Topic publicacion alarma : II10/ESP4173425/alarm/status
+- Topic suscripcion alarma : II10/ESP4173425/alarm/cmd
+- Topic suscripcion FOTA : II10/ESP4173425/FOTA
 
 La siguiente, y quizá la más importante, función es la de procesa_mensaje() la cual recibe un topic y un payload y procesa los mensajes que llegan realizando las acciones pertinentes con los actuadores conectados a la placa como actualizar la intensidad deseada del motor y encender o apagar la iluminación o la alarma. También contempla la posibilidad de que el mensaje recibido sea dedicado a actualizar el firmware mediante una actualización FOTA.
 
