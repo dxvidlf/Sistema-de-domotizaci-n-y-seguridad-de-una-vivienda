@@ -110,9 +110,11 @@ Por ello, existe una herramienta denominada Dynamic Domain Name Server, la cual 
 
 Dicha asignación queda registrada en unos servidores que ofrecen sus servicios de redireccionamiento DNS al usuario, por lo que para este proyecto haremos uso del servidor DuckDNS para que cada vez que la Raspberry se reinicie, podamos saber la IP pública en la que está operando y poder acceder así a sus puertos mediante el nombre que le hayamos asignado al dominio. En este caso, hemos implantado 3 dominios: 
 
-•	infindgrupo10nodered.duckdns.org: este dominio apuntará al puerto donde se encuentra operando NodeRed en nuestra Raspberry, el 1880.
-•	infindgrupo10portainer.duckdns.org: este dominio apuntará al puerto donde se encuentra operando Portainer en nuestra Raspberry, el 9000.
-•	infindgrupo10cam.duckdns.org: este dominio apuntará a donde se encuentra retransmitiendo video en streaming nuestra cámara de seguridad, por tanto, la IP a la que apunta será la de nuestra cámara dentro de nuestra área local, y el puerto al que apuntará será el 81.
+•infindgrupo10nodered.duckdns.org: este dominio apuntará al puerto donde se encuentra operando NodeRed en nuestra Raspberry, el 1880.
+
+•infindgrupo10portainer.duckdns.org: este dominio apuntará al puerto donde se encuentra operando Portainer en nuestra Raspberry, el 9000.
+
+•infindgrupo10cam.duckdns.org: este dominio apuntará a donde se encuentra retransmitiendo video en streaming nuestra cámara de seguridad, por tanto, la IP a la que apunta será la de nuestra cámara dentro de nuestra área local, y el puerto al que apuntará será el 81.
 
 #### NginxProxyManager
 
