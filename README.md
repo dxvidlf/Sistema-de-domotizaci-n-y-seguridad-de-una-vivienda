@@ -42,7 +42,7 @@ El presente proyecto desarrolla y explica el trabajo final de la asignatura Info
 
 El proyecto se divide en dos partes fundamentales, siendo estas las correspondientes al sistema de domotización y al sistema de seguridad.
 
-Como se explicará en mayor profundidad posteriormente, el sistema de seguridad estará comprendido principalmente por una cámara con un sistema de movimiento que permitirá visualizar su entorno en 360 grados. Esta implementación también ha sido usada para la implementación de un robot móvul para la asignatua Laboratorio de Robótica. Debido a la gran complejidad de este sistema, se ha creado un repositorio a parte donde explica toda esta parte del proyecto con la profundidad que ésta requiere, siendo posible acceder a dicho repositorio a través del siguiente enlace: https://github.com/dxvidlf/Camara-para-Robot-Movil
+Como se explicará en mayor profundidad posteriormente, el sistema de seguridad estará comprendido principalmente por una cámara con un sistema de movimiento que permitirá visualizar su entorno en 360 grados. Esta implementación también ha sido usada para la implementación de un robot móvil para la asignatua Laboratorio de Robótica. Debido a la gran complejidad de este sistema, se ha creado un repositorio a parte donde explica toda esta parte del proyecto con la profundidad que ésta requiere, siendo posible acceder a dicho repositorio a través del siguiente enlace: https://github.com/dxvidlf/Camara-para-Robot-Movil
 
 Todos los códigos mencionados en el documento se encuentran disponibles en la carpeta "Códigos".
 
