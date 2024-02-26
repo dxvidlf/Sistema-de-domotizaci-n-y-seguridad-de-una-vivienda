@@ -588,12 +588,14 @@ Cada una de las placas que componen el proyecto tiene su respectivo código para
 
 En primer lugar, se inicializan todas las constantes y variables necesarias para el programa, entre ellas las relacionadas con la conexión (wifi y MQTT), los topics para el envío de los mensajes MQTT y los puertos GPIO que se usan en la placa que son:
 
+```arduino
 const int ledVerde = 33;
 const int ledRojo = 32;
 const int left = 14;
 const int rigth = 12;
 const int txPin = 1;
 const int pinflash = 15;
+```
 
 La asignación de los GPIOs en esta placa es crítica, ya que se ha estudiado detalladamente el pinout de la misma para no causar conflictos entre los pines usados por el propio sensor de la cámara y los pines que quedan libres.
 
@@ -602,7 +604,9 @@ La función de setup es la primera que se ejecuta en el código y en ella se ini
 Una vez se ha completado el setup, pasamos al bucle de ejecución principal. En cada una de sus iteraciones se hace lo siguiente:
 
 •	Se comprueba si seguimos teniendo conexión Wifi y conexión con el cliente MQTT y si no es así, se intenta reconectar.
+
 •	Ordenamos que la librería mqtt_client recupere el control.
+
 •	Mandamos una foto a modo de toma de seguridad en un intervalo de tiempo que está determinado mediante una variable que se recibe por MQTT, y corresponde con un slider disponible en la dashboard de Nodered. Por defecto, esta variable está inicializada a 60 minutos.
 
 Para realizar esto, en el código se definen algunas funciones que se encargan de realizar los procesos descritos a continuación:
