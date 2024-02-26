@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>ESP-NOW MQTT Cliente con ESP8266</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="esp-now-mqtt-cliente-con-esp8266">ESP-NOW MQTT Cliente con ESP8266</h1>
+<p>Este código está diseñado para un sistema de sensor basado en ESP8266 que utiliza ESP-NOW para la comunicación con una pasarela ESP-NOW -&gt; MQTT. A continuación, se detallan sus componentes principales y funcionalidades:</p>
+<h2 id="propósito">Propósito</h2>
+<ul>
+<li><strong>Transmisión de Datos</strong>: El sensor envía datos en formato JSON a una pasarela ESP-NOW -&gt; MQTT.</li>
+<li><strong>Identificación de la Pasarela</strong>: La pasarela objetivo se identifica por su dirección MAC (2E:3A:E8:12:7D:0E).</li>
+</ul>
+<h2 id="modo-de-sueño-profundo-deep-sleep">Modo de Sueño Profundo (Deep Sleep)</h2>
+<ul>
+<li><strong>Activación del Modo de Sueño</strong>: Después de enviar datos o en caso de error o tiempo de espera, el dispositivo entra en modo de sueño profundo durante aproximadamente 30 segundos.</li>
+</ul>
+<h2 id="configuración-de-despertar">Configuración de Despertar</h2>
+<ul>
+<li><strong>Conexión GPIO para Despertar</strong>: Para despertar del sueño profundo, el GPIO16 debe estar conectado al pin RST (reset).</li>
+<li><strong>Precauciones Durante la Programación</strong>: Esta conexión debe ser retirada al programar la placa.</li>
+</ul>
+<h2 id="estructura-del-código">Estructura del Código</h2>
+<p>El código para el sensor ESP8266 con ESP-NOW está estructurado en varias funciones clave, cada una con una responsabilidad específica en el sistema.</p>
+<h3 id="función-byte2hexbyte-data">Función <code>byte2HEX(byte data)</code></h3>
+<p>Convierte un único byte en una cadena de caracteres hexadecimal. Esta función es útil para visualizar datos binarios (como direcciones MAC) en un formato más legible. Utiliza operaciones bit a bit para convertir el valor numérico de un byte en su representación hexadecimal correspondiente.</p>
+<h3 id="callback-fin_envio_espnowuint8_t-mac-uint8_t-sendstatus">Callback <code>fin_envio_espnow(uint8_t *mac, uint8_t sendStatus)</code></h3>
+<ul>
+<li><strong>Propósito</strong>: Maneja la finalización de la transmisión de datos ESP-NOW.</li>
+<li><strong>Funcionalidades Clave</strong>:
+<ul>
+<li><strong>Indicación de Estado de Envío</strong>: Muestra si la transmisión fue exitosa o no.</li>
+<li><strong>Registro de Dirección MAC</strong>: Imprime la dirección MAC del destinatario del mensaje, lo que ayuda en la depuración y el seguimiento de la transmisión.</li>
+<li><strong>Activación del Sueño Profundo</strong>: En caso de éxito o fracaso en la transmisión, dirige al dispositivo a entrar en modo de sueño profundo para conservar energía.</li>
+</ul>
+</li>
+</ul>
+<h3 id="función-setup">Función <code>setup()</code></h3>
+<h4 id="propósito-1">Propósito</h4>
+<p>La función <code>setup()</code> prepara el dispositivo para su funcionamiento. Esta función se ejecuta una vez al iniciar el dispositivo y configura los componentes necesarios.</p>
+<h4 id="pasos-clave">Pasos Clave</h4>
+<ul>
+<li>
+<p><strong>Inicialización del Puerto Serie</strong>:</p>
+<ul>
+<li>Configura la comunicación serial a 115200 baudios para la depuración y el monitoreo.</li>
+<li>Imprime mensajes iniciales para confirmar el inicio del proceso de configuración.</li>
+</ul>
+</li>
+<li>
+<p><strong>Configuración del Sensor DHT</strong>:</p>
+<ul>
+<li>Inicializa el sensor DHT11 conectado al GPIO 5.</li>
+<li>Lee los valores de temperatura y humedad del sensor.</li>
+<li>Gestiona los valores no numéricos (NaN) asignando un valor predeterminado para evitar errores en el mensaje JSON.</li>
+</ul>
+</li>
+<li>
+<p><strong>Configuración de WiFi</strong>:</p>
+<ul>
+<li>Establece el modo WiFi del ESP8266 en modo estación (STA).</li>
+<li>Desconecta de cualquier red WiFi previamente almacenada.</li>
+<li>Imprime la dirección MAC del dispositivo para facilitar la identificación en la red.</li>
+</ul>
+</li>
+<li>
+<p><strong>Inicialización de ESP-NOW</strong>:</p>
+<ul>
+<li>Intenta inicializar el protocolo ESP-NOW.</li>
+<li>Configura el rol del dispositivo en la red ESP-NOW como controlador.</li>
+<li>Agrega un peer (dispositivo ESP-NOW) con la dirección MAC especificada.</li>
+<li>Registra un callback para la finalización del envío de datos ESP-NOW.</li>
+<li>En caso de fallo en la inicialización de ESP-NOW, manda el dispositivo a dormir para conservar energía.</li>
+</ul>
+</li>
+<li>
+<p><strong>Lectura de Datos de los Sensores</strong>:</p>
+<ul>
+<li>Espera el tiempo mínimo de muestreo del sensor DHT11.</li>
+<li>Lee la temperatura, humedad y luminosidad (a través de un sensor analógico).</li>
+<li>Mapea el valor del sensor analógico a un rango de 0 a 1000 para estandarizar los datos.</li>
+</ul>
+</li>
+<li>
+<p><strong>Construcción y Envío del Mensaje JSON</strong>:</p>
+<ul>
+<li>Construye un mensaje JSON con los datos recopilados de los sensores, incluyendo un campo de estado.</li>
+<li>Convierte el mensaje JSON en una cadena de texto y lo imprime para depuración.</li>
+<li>Envía el mensaje JSON a través de ESP-NOW a la dirección MAC especificada.</li>
+</ul>
+</li>
+</ul>
+<h3 id="función-loop">Función <code>loop()</code></h3>
+<ul>
+<li><strong>Propósito</strong>: Contiene la lógica principal del programa que se ejecuta continuamente.</li>
+<li><strong>Funcionamiento</strong>:
+<ul>
+<li><strong>Verificación de Tiempo de Espera</strong>: Comprueba si se ha superado el tiempo límite para el envío de datos.</li>
+<li><strong>Activación del Modo de Sueño</strong>: Si se supera el tiempo de espera, invoca la función <code>gotoSleep</code> para minimizar el consumo de energía.</li>
+</ul>
+</li>
+</ul>
+<h3 id="función-gotosleep">Función <code>gotoSleep()</code></h3>
+<ul>
+<li><strong>Propósito</strong>: Gestiona la entrada del dispositivo en el modo de sueño profundo.</li>
+<li><strong>Características</strong>:
+<ul>
+<li><strong>Registro de Tiempos</strong>: Antes de dormir, registra y muestra el tiempo transcurrido en varias etapas del proceso, como el arranque, la configuración, y el envío de datos.</li>
+<li><strong>Configuración del Sueño Profundo</strong>: Pone el dispositivo en un estado de bajo consumo energético durante un tiempo definido, optimizando así la vida de la batería.</li>
+</ul>
+</li>
+</ul>
+<p>Este diseño permite una gestión eficiente de la energía y una comunicación robusta mediante ESP-NOW.</p>
+<h2 id="transmisión-de-datos">Transmisión de Datos</h2>
+<ul>
+<li><strong>Lectura de Sensores</strong>: Los datos de temperatura, humedad y luminosidad se leen desde un sensor DHT y un sensor analógico.</li>
+<li><strong>Empaquetamiento de Datos</strong>: Los datos se empaquetan en un mensaje JSON junto con el estado del sensor.</li>
+<li><strong>Envío de Datos</strong>: El mensaje JSON se envía a la pasarela ESP-NOW especificada.</li>
+</ul>
+<h2 id="manejo-del-sueño-profundo">Manejo del Sueño Profundo</h2>
+<ul>
+<li><strong>Registro de Tiempos</strong>: Antes de entrar en sueño profundo, el dispositivo registra varios sellos de tiempo para el arranque, la configuración, el envío de datos y el tiempo actual.</li>
+<li><strong>Optimización de Energía</strong>: El uso del modo de sueño profundo y la desactivación de la calibración RF al despertar ayuda a conservar la energía.</li>
+</ul>
+<p>Este código está optimizado para un nodo sensor en una aplicación IoT, centrándose en la gestión eficiente de la energía a través del sueño profundo y la transmisión de datos efectiva utilizando ESP-NOW.</p>
+
+        
+        
+    </body>
+    </html>
