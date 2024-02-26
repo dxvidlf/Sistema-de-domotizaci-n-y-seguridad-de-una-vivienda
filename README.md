@@ -865,7 +865,7 @@ A continuación, se detallan todas las opciones de control disponibles para el u
   <img src="/fotos/image-55.png">
 </p>
 
-#### Opciones disponibles del menú de seguridad del hogar
+### Opciones disponibles del menú de seguridad del hogar
 
 A continuación, se detallan todas las opciones de control disponibles para el usuario, siendo estas:
 
@@ -978,7 +978,7 @@ https://alexa-node-red.bm.hardill.me.uk/
 
 Ahí, podemos gestionar los dispositivos que tenemos en casa. Con esta librería, conseguimos comunicar los dispositivos de Node-Red con nuestra cuenta personal de Alexa y el dispositivo Amazon echo.
 
-#### Uso de atajo de iPhone para la activación de la alarma
+### Uso de atajo de iPhone para la activación de la alarma
 
 Para comenzar a utilizar esta funcionalidad habrá que definir un atajo y crear una automatización a partir de él. En primer lugar, descargamos el atajo desde el siguiente enlace: 
 
