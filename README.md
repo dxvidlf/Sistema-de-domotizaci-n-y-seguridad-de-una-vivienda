@@ -303,6 +303,7 @@ Debido a que un motor paso a paso consume una corriente elevada y puede necesita
 <p align="center">
   <img src="/fotos/image-24.png">
 </p>
+
 ### Driver ULN2003A
 
 Este módulo cuenta con el controlador ULN2003 que posee una configuración Darlington y se encarga de incrementar el nivel de corriente para suplir la potencia necesaria que solicita el motor paso a paso. permite la adaptación de cualquier motor paso a paso cuando se conecta directamente. Posee cinco lí­neas de conexión para el motor, además de cuatro fases.
@@ -425,9 +426,13 @@ La función de setup es la primera que se ejecuta en el código y en ella se ini
 Una vez se ha completado el setup, pasamos al bucle de ejecución principal. En cada una de sus iteraciones se hace lo siguiente:
 
 •	Se comprueba si seguimos teniendo conexión con el cliente MQTT y si no es así, se intenta reconectar.
+
 •	Ordenamos que las librerías mqtt_client y button recuperen el control.
+
 •	Verificamos si es necesario realizar una actualización FOTA cada hora.
+
 •	Enviamos los datos de conexión y de los sensores por MQTT cada 3000 segundos.
+
 •	Ajustamos la intensidad del motor de forma gradual a una velocidad de ±1% cada 10ms.
 
 Para realizar esto, en el código se definen algunas funciones que se encargan de realizar los procesos descritos a continuación:
