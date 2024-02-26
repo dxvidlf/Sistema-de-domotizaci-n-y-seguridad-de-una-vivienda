@@ -20,7 +20,7 @@ El objetivo principal que se persigue satisfacer con el presente proyecto es el 
 Para llevar a cabo dicho objetivo, se hará uso de entornos de programación tales como NodeRed y Arduino, siendo la primera la principal donde se desarrollará la lógica de programación que rija nuestro proyecto, y quedando por tanto la segunda destinada a la programación de cada parte individual del sistema de domotización.
 
 Para hacer aún más cercana y realista al usuario la experiencia del sistema de domotización se ha creado un entorno de desarrollo para el mismo dentro de una Raspberry Pi 3b+, lo cual tal y como se explicará más adelante facilitará el acceso remoto a su sistema local, dando así la posibilidad a dicho usuario de poder gestionar el control y la seguridad de su vivienda desde cualquier parte.
-![Alt text](image.png)
+![Alt text](/fotos/image.png)
 
 ## Configuración del entorno de desarrollo
 
@@ -30,11 +30,11 @@ A continuación, se detallan las fases de configuración seguidas para la creaci
 
 ### Configuración inicial de Raspberry Pi OS
 
-El primer paso de la configuración del entorno es la instalación de Raspberry Pi OS (anteriormente conocido como Raspbian). Para ello, se ha hecho uso de la herramienta Raspberry Pi Imager, la cual se encargará de flashear nuestra tarjeta microSD con el sistema operativo que deseemos para nuestra Raspberry. Una vez completado el proceso de escritura y verificación del sistema, podemos introducir la tarjeta microSD en el dispositivo (no sin antes conectar el mismo a un teclado, ratón y monitor para visualizar la interfaz de usuario) para comenzar con las configuraciones iniciales tales como la creación de un usuario, la contraseña, zona horaria, etc.
+El primer paso de la configuración del entorno es la instalación de Raspberry Pi OS (anteriormente conocido como Raspbian). Para ello, se ha hecho uso de la herramienta Raspberry Pi /fotos/imager, la cual se encargará de flashear nuestra tarjeta microSD con el sistema operativo que deseemos para nuestra Raspberry. Una vez completado el proceso de escritura y verificación del sistema, podemos introducir la tarjeta microSD en el dispositivo (no sin antes conectar el mismo a un teclado, ratón y monitor para visualizar la interfaz de usuario) para comenzar con las configuraciones iniciales tales como la creación de un usuario, la contraseña, zona horaria, etc.
 
 Tras la configuración del sistema, se configura una de las cosas más importantes del proceso, una dirección IP estática. Esa característica nos da facilidad para hacer el resto de las configuraciones posteriores según una dirección IP que sabemos que no cambiará. 
 
-![Alt text](image-1.png)
+![Alt text](/fotos/image-1.png)
 
 Para llevar a cabo esta tarea, accedemos al archivo /etc/dhcpcd.conf, y creamos la interfaz de red correspondiente para asignar la dirección IP estática. Es importante asignar una dirección alta, para evitar posibles conflictos en la asignación dinámica de IPs del servidor DHCP de nuestro router, aunque posteriormente solucionaremos esto. Nuestra interfaz configurada consta de las siguientes líneas.
 
@@ -43,11 +43,11 @@ static ip_address=192.168.1.254/24
 static routers=192.168.1.1
 static domain_name_servers=192.168.1.1 8.8.8.8 
 
-![Alt text](image-2.png)
+![Alt text](/fotos/image-2.png)
 
 Esto además nos permitirá saber en qué dirección estará siempre nuestro dispositivo de cara a su conexión SSH mediante programas como RealVNC (el cual viene ya instalado por defecto en la Raspberry), por lo que a partir de aplicar esta configuración podemos prescindir de los periféricos del dispositivo y visualizar su interfaz de usuario desde cualquier otro dispositivo de nuestra área local.
 
-![Alt text](image-3.png)
+![Alt text](/fotos/image-3.png)
 
 ### Instalación de Docker y Portainer
 
@@ -67,7 +67,7 @@ sudo docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/do
 
 Con esto, y tras la respectiva configuración inicial de Docker y Portainer (la cuál no se va a explicar en este proyecto ya que lo alargaría en exceso), obtenemos una interfaz de usuario accesible desde el área local como la siguiente. Desde ahí, se pueden acceder a todos los contenedores para detenerlos, reiniciarlos o lanzarlos, ver los logs de cada uno, ejecutar comandos como usuario root, etc.
 
-![Alt text](image-4.png)
+![Alt text](/fotos/image-4.png)
 
 ### Instalación de los contenedores del proyecto
 
@@ -89,7 +89,7 @@ Aunque nosotros sepamos que nuestro dispositivo tiene una cierta dirección IP d
 
 Por ello, existe una herramienta denominada Dynamic Domain Name Server, la cual permite asociar una dirección IP dinámica al nombre de un dominio previamente asignado. 
 
-![Alt text](image-5.png)
+![Alt text](/fotos/image-5.png)
 
 Dicha asignación queda registrada en unos servidores que ofrecen sus servicios de redireccionamiento DNS al usuario, por lo que para este proyecto haremos uso del servidor DuckDNS para que cada vez que la Raspberry se reinicie, podamos saber la IP pública en la que está operando y poder acceder así a sus puertos mediante el nombre que le hayamos asignado al dominio. En este caso, hemos implantado 3 dominios: 
 
@@ -101,13 +101,13 @@ Dicha asignación queda registrada en unos servidores que ofrecen sus servicios 
 
 Su función es implantar en nuestra Raspberry un servidor de proxy inverso, lo cual facilitará el redireccionamiento de los puertos de las peticiones externas a las IPs y los puertos de nuestra área local. Además, esta herramienta nos ofrece la posibilidad de crear listas de acceso con las que implantar métodos de autenticación a nuestros dominios, y cifrados de conexiones mediante certificados SSL generados con el servicio letsencrypt. Este contenedor usa los puertos 80, 443 y 81, siendo estos los encargados del tráfico http, https y la gestión del servidor, respectivamente.
 
-![Alt text](image-6.png)
+![Alt text](/fotos/image-6.png)
 
 ### Configuración del router de nuestra red local
 
 Lo primero que hay que configurar en nuestro router es el rango de direcciones IP dinámicas que puede administrar el servidor DHCP implantado en el router. En nuestro caso, hemos impuesto un rango de direcciones desde la 192.168.1.10 hasta la 192.168.1.150, lo cual es más que necesario para nuestra red local. 
 
-![Alt text](image-7.png)
+![Alt text](/fotos/image-7.png)
 
 Por tanto, tenemos el resto de las direcciones de nuestra red disponibles para usarse a nuestro gusto, como hemos hecho con la dirección IP fija de la Raspberry. Con esto, nos hemos asegurado de que en ningún momento el servidor DHCP pueda asignarle a un nuevo dispositivo de nuestra red la misma IP que cualquier otro dispositivo con una IP fija, y evitando así un fallo catastrófico en la red.
 
@@ -125,7 +125,7 @@ Por tanto, lo único que nos queda es abrir los puertos de http y https de nuest
 
 Y con esto, hemos creado un entorno de trabajo seguro para trabajar remotamente en la creación del proyecto, además de ofrecer el acceso al proyecto final para el usuario desde cualquier parte. 
 
-![Alt text](image-8.png)
+![Alt text](/fotos/image-8.png)
 
 # Diseño hardware y esquema de conexionado
 
@@ -139,7 +139,7 @@ La placa de desarrollo ESP8266 NodeMCU ESP-12E CP2102 es el componente central e
 
 Su amplia gama de pines GPIO (General Purpose Input/Output) ofrece flexibilidad para conectar una variedad de sensores, actuadores y otros dispositivos periféricos. Además, su compatibilidad con el entorno de programación Arduino y el ecosistema de desarrollo de software permite escribir y cargar código de forma sencilla. 
 
-![Alt text](image-9.png)
+![Alt text](/fotos/image-9.png)
 
 El ESP8266 NodeMCU ESP-12E CP2102 es una placa de desarrollo versátil que cuenta con 17 pines GPIO digitales, permitiendo la implementación de PWM de 10 bits en los pines GPIO0 al GPIO15. Algunos GPIO, como el GPIO16, tienen usos específicos, como despertar la placa del modo de suspensión profunda. Sin embargo, se recomienda evitar el uso de ciertos pines, como GPIO6 al GPIO11, que no son accesibles a través de la placa de desarrollo (excepto el 9 y el 10). Además, se destaca la presencia de pines dedicados para SPI y la conversión analógica a digital (ADC0) en A0 con un rango de entrada de 0 a 3.3V. La placa también incluye leds conectados a GPIO2 y GPIO16, operando con lógica invertida. Por último, los botones de reset y flash controlan reinicios y modos de carga, siendo este último activado al poner GPIO0 (D3) a nivel bajo.
 
@@ -149,7 +149,7 @@ El Arduino Nano es una placa de desarrollo compacta basada en microcontroladores
 
 Es popular en proyectos de electrónica y programación debido a su versatilidad y tamaño conveniente, siendo especialmente útil en aplicaciones donde el espacio es limitado. Además, el Arduino Nano es compatible con el entorno de desarrollo Arduino, lo que facilita la programación y la creación de prototipos.
 
-![Alt text](image-10.png)
+![Alt text](/fotos/image-10.png)
 
 ### ESP-32 Wrover Cam
 
@@ -157,7 +157,7 @@ La ESP32 WROVER-CAM, basada en el chip ESP32, destaca por su diseño compacto y 
 
 Uno de los puntos destacados de este módulo son sus GPIOs multipropósito, que ofrecen flexibilidad en el diseño y la implementación de proyectos. Estos pines pueden configurarse para diversas funciones, como entrada analógica, salida digital o comunicación serial, lo que amplía las posibilidades de integración con otros dispositivos y sensores.
 
-![Alt text](image-11.png)
+![Alt text](/fotos/image-11.png)
 
 ### ESP-32 Wroom 32
 
@@ -167,7 +167,7 @@ Los GPIOs versátiles proporcionan flexibilidad en el diseño, permitiendo confi
 
 La capacidad para ejecutar aplicaciones web directamente en el módulo facilita la visualización remota de datos y la configuración a través de interfaces basadas en navegador.
 
-![Alt text](image-12.png)
+![Alt text](/fotos/image-12.png)
 
 ## Listado de sensores utilizados
 
@@ -175,25 +175,25 @@ La capacidad para ejecutar aplicaciones web directamente en el módulo facilita 
 
 Este sensor, basado en tecnología de detección de infrarrojos pasivos, identifica cambios en el calor emitido por objetos en su campo de visión. Gracias a su ajuste y sensibilidad, permite detectar movimientos con precisión.
 
-![Alt text](image-13.png)
+![Alt text](/fotos/image-13.png)
 
 ### Sensor de gas MQ-6
 
 El módulo de sensor de gas MQ-6 está diseñado para detectar gases combustibles como propano, isobutano y butano en el entorno. Basado en su principio de detección de resistencia, este sensor es capaz de identificar la presencia de estos gases en concentraciones específicas. Es importante ya que nos permitirá integrar sistemas de alerta temprana ante la presencia de gases potencialmente peligrosos. 
 
-![Alt text](image-14.png)
+![Alt text](/fotos/image-14.png)
 
 ### Sensor de monóxido de carbono MQ-7
 
 Este sensor está diseñado específicamente para detectar la presencia de monóxido de carbono (CO) en el ambiente. Igualmente, se basa en un principio de detección de resistencia, y tiene la capacidad de identificar concentraciones específicas de CO, un gas incoloro, inodoro y altamente tóxico. Igual que el anteriormente descrito, su sensibilidad también es ajustable.
 
-![Alt text](image-15.png)
+![Alt text](/fotos/image-15.png)
 
 ### Sensor DHT11 para humedad y temperatura
 
 Este sensor digital de baja complejidad cuenta con un sensor de temperatura y un sensor de humedad relativa integrados en un solo chip. Tiene un diseño preciso y de bajo costo y proporciona mediciones confiables de temperatura en un rango de 0 a 50 grados Celsius y de humedad relativa entre 20% y 90%. Este sensor es ampliamente utilizado en aplicaciones de monitoreo ambiental.
 
-![Alt text](image-16.png)
+![Alt text](/fotos/image-16.png)
 
 ### Fotorresitor
 
@@ -201,19 +201,19 @@ El fotorresistor, también conocido como LDR (Light Dependent Resistor), es un c
 
 Cuando la luz incide sobre el fotorresistor, su resistencia disminuye, y cuando la luz disminuye, su resistencia aumenta.
 
-![Alt text](image-17.png)
+![Alt text](/fotos/image-17.png)
 
 ### Panel de teclado numérico matricial de membrana 4x4
 
 Se trata de un dispositivo de entrada que consiste en una matriz de botones dispuestos en filas y columnas. Este teclado es utilizado para introducir datos numéricos. Permite ofrecer múltiples entradas a través de una conexión sencilla lo que lo hace ideal para aplicaciones como control de acceso, sistemas de seguridad.
 
-![Alt text](image-18.png)
+![Alt text](/fotos/image-18.png)
 
 ### Sensor final de carrera
 
 Es un dispositivo que conmuta internamente sus conexiones al recibir una pulsación mecánica, haciendo que la corriente de la base pase a circular por el pin NO (Normally Open) en vez de por el pin NC (Normally Closed). En nuestro caso, haremos uso de este dispositivo para detectar cuando el motor que controla la posición de la cámara llega al origen del recorrido y realizar así su calibración.
 
-![Alt text](image-19.png)
+![Alt text](/fotos/image-19.png)
 
 ## Listado de actuadores usados
 
@@ -221,25 +221,25 @@ Es un dispositivo que conmuta internamente sus conexiones al recibir una pulsaci
 
 El buzzer pasivo MH-FMD es un componente acústico que, al recibir una señal eléctrica, produce sonidos audibles. Su funcionamiento se basa en la variación de frecuencia o duración de la señal eléctrica aplicada, generando diferentes tonos audibles.
 
-![Alt text](image-20.png)
+![Alt text](/fotos/image-20.png)
 
 ### Microservo 9G SG90
 
 Este servo es pequeño y ligero y posee una gran potencia de salida. Este modelo es muy fácil de programar y es idóneo para el uso que desempeñará en el proyecto.
 
-![Alt text](image-21.png)
+![Alt text](/fotos/image-21.png)
 
 ### Motor de engranaje DC
 
 El motor de engranaje DC es un componente electromecánico que convierte la energía eléctrica en movimiento mecánico. Tiene un tamaño compacto y es bastante versátil, este motor se utiliza para aplicaciones que requieren un torque moderado y un tamaño reducido. Para el control de la velocidad requerirá, de forma adicional, de un transistor NPN, como podría ser el PN2222.
 
-![Alt text](image-22.png)
+![Alt text](/fotos/image-22.png)
 
 ### Diodos LED
 
 Son utilizados también a modo indicativo en el proyecto tanto para representar la iluminación de un entorno como el estado de ciertos actuadores y sistemas. Para su utilización, serán también necesarias una serie de resistencias que limiten la corriente que pase a través de los diodos.
 
-![Alt text](image-23.png)
+![Alt text](/fotos/image-23.png)
 
 ### Motor paso a paso 28BYJ-48
 
@@ -247,13 +247,13 @@ Este motor unipolar, aunque no es demasiado potente ni excesivamente rápido, cu
 
 Debido a que un motor paso a paso consume una corriente elevada y puede necesitar una tensión mayor a los 5 VDC de nuestro Arduino, no podemos realizar una conexión directa entre ellos. Se requiere un manejador (driver) o interface para brindar al motor la tensión y la corriente necesarias, por eso utilizamos el siguiente módulo.
 
-![Alt text](image-24.png)
+![Alt text](/fotos/image-24.png)
 
 ### Driver ULN2003A
 
 Este módulo cuenta con el controlador ULN2003 que posee una configuración Darlington y se encarga de incrementar el nivel de corriente para suplir la potencia necesaria que solicita el motor paso a paso. permite la adaptación de cualquier motor paso a paso cuando se conecta directamente. Posee cinco lí­neas de conexión para el motor, además de cuatro fases.
 
-![Alt text](image-25.png)
+![Alt text](/fotos/image-25.png)
 
 ### Convertidor Buck Mini 360 DC
 
@@ -261,26 +261,26 @@ El convertidor buck Mini 360 DC es un dispositivo compacto y eficiente diseñado
 
 Este tipo de convertidor es comúnmente utilizado en aplicaciones electrónicas para alimentar dispositivos que requieren una tensión de alimentación menor que la disponible. En nuestro caso, lo usaremos para adaptar la salida de 12 Voltios de un cojunto de pilar y así poder alimentar dispositivos como el mando que controle la cámara, o el propio ecosistema de la cámara.
 
-![Alt text](image-26.png)
+![Alt text](/fotos/image-26.png)
 
 ## Módulos para el sistema de domotización
 
 A continuación, se adjuntan los esquemas de todos los módulos que componen el sistema de domotización de la vivienda.
 
 Placa principal de desarrollo general:
-![Alt text](image-27.png)
+![Alt text](/fotos/image-27.png)
 
 Placa cliente ESPNOW:
 
-![Alt text](image-28.png)
+![Alt text](/fotos/image-28.png)
 
 Placa híbrida, servidor ESPNOW, acceso al hogar:
 
-![Alt text](image-29.png)
+![Alt text](/fotos/image-29.png)
 
 El montaje experimental queda de la siguiente forma:
 
-![Alt text](image-30.png)
+![Alt text](/fotos/image-30.png)
 
 ## Módulos para la seguridad de la vivienda
 
@@ -292,7 +292,7 @@ Toda la información de este apartado se encuentra recogida en el siguiente repo
 
 El diagrama de bloques del sistema de domotización es el siguiente.
 
-![Alt text](image-31.png)
+![Alt text](/fotos/image-31.png)
 
 ## Descripción del funcionamiento
 
@@ -441,25 +441,25 @@ El proceso de transmisión de datos implica la lectura de los sensores para obte
 
 En este primer bloque tenemos todo lo necesario para la captura de datos y almacenamiento de estos en las bases de datos para la Seguridad y los Datos. También se configura la pestaña del Dashboard. Podemos ver que tenemos dos subflows con funciones específicas: un monitor de seguridad y un monitor de datos, estos tienen como función configurar otras pestañas en el Dashboard con el objetivo de visualizar los datos de una manera más sencilla.
 
-![Alt text](image-32.png)
-![Alt text](image-33.png)
-![Alt text](image-34.png)
+![Alt text](/fotos/image-32.png)
+![Alt text](/fotos/image-33.png)
+![Alt text](/fotos/image-34.png)
 
 En la siguiente figura podemos ver la programación del bot de Telegram. Para el uso de los botones (explicado en el manual de usuario) hay que añadirlos en la función de mensaje de bienvenida. Cada botón está configurado con una callback_query diferente que desencadena la acción especificada. Arriba a la izquierda podemos ver que se guarda el chatId de la persona que lanza cualquier evento con callback_query (cualquier botón) para que la respuesta se envíe solo al usuario que mando la petición.
 
-![Alt text](image-35.png)
+![Alt text](/fotos/image-35.png)
 
 Este flujo está diseñado específicamente para integrar dispositivos de domótica con un asistente virtual como Alexa de Amazon. A través de este sistema, los usuarios pueden controlar dispositivos inteligentes en su hogar utilizando comandos de voz, lo que representa un salto significativo en la conveniencia y accesibilidad de la automatización del hogar. Podemos controlar el estado del led, el estado del motor y activar/desactivar la alarma con un simple comando de voz.
 
-![Alt text](image-36.png)
+![Alt text](/fotos/image-36.png)
 
 Tras esto tenemos la zona donde podemos hacer consultas a las diferentes bases de datos y borrarlas (estos hilos están desconectados para no borrar bases de datos de manera accidental).
 
-![Alt text](image-37.png)
+![Alt text](/fotos/image-37.png)
 
 Otra parte importante del Flow es la zona que nos informa en el dashboard de la última actualización de Firmware y añade el botón para poder actualizar el firmware del dispositivo de manera remota. 
 
-![Alt text](image-38.png)
+![Alt text](/fotos/image-38.png)
 
 # Diseño software del sistema de seguridad
 
@@ -467,7 +467,7 @@ Otra parte importante del Flow es la zona que nos informa en el dashboard de la 
 
 El diagrama de bloques del sistema es el siguiente:
 
-![Alt text](image-39.png)
+![Alt text](/fotos/image-39.png)
 
 ## Descripción del funcionamiento
 
@@ -601,27 +601,27 @@ En NodeRed, tenemos un conjunto de bloques para el manejo de la cámara de segur
 
 El primer bloque es el dedicado a la lógica para hacer fotos de forma manual, comando que se puede realizar a través de las tres plataformas ofrecidas al usuario, como son NodeRed, Telegram y el mando wifi. Además, se ofrece al usuario la posibilidad de escoger entre hacer la foto con o sin flash. La foto se realiza mediante una petición http al API “/capture” del servidor local de la cámara, gracias al nodo http request. Dicha foto es devuelta en formato buffer de datos, e introducida en el campo content del mensaje de respuesta al nodo Telegram sender. Además, dicha foto es convertida a formato cadena para su almacenamiento en la base de datos denominada “fotos_manual”. Para añadir robustez al programa, se ha añadido una comprobación para verificar si el intento de hacer la foto se ha llevado a cabo satisfactoriamente o no, valorando si el payload que devuelve el http request devuelve error o no, de cara a no almacenar ni enviar fotos corruptas
 
-![Alt text](image-40.png)
+![Alt text](/fotos/image-40.png)
 
 El siguiente bloque es el dedicado a la toma de fotos de seguridad, la cual se hace por defecto cada 60 minutos, tal y como se explicó en su correspondiente programa de Arduino. En el dashboard de NodeRed se dispone de un nodo slider para poder configurar el tiempo de guardado de dichas fotos de seguridad, el cual puede configurarse desde 1 a 60 minutos. Dichas fotos se guardan en una base de datos denominada “fotos_seguridad”. 
 
-![Alt text](image-41.png)
+![Alt text](/fotos/image-41.png)
 
 El siguiente bloque es el dedicado a la recuperación de las fotos guardas en las dos bases de datos, en función del botón que use el usuario en la petición desde Telegram. De nuevo, se hace una comprobación del estado de la foto antes de mandarla.
 
-![Alt text](image-42.png)
+![Alt text](/fotos/image-42.png)
 
 El siguiente bloque es el dedicado a la gestión de las peticiones de control del motor de la cámara y del flash manual, tanto desde la dashboard de NodeRed como desde los botones disponibles en Telegram.
 
-![Alt text](image-43.png)
+![Alt text](/fotos/image-43.png)
 
-El siguiente bloque es el encargado de gestionar el video en streaming en la dashboard de NodeRed. Consta de un nodo template en el que hay un código html básico compuesto por un <div> que encierra el contenido de la imagen que transmite en directo la cámara de seguridad, haciendo una petición al servidor que implanta la cámara en el área local. Además, también se gestiona la petición desde Telegram para ver el video en streaming, devolviendo ante dicha petición la URL del servidor donde se encuentra alojado el video en streaming de la cámara.
+El siguiente bloque es el encargado de gestionar el video en streaming en la dashboard de NodeRed. Consta de un nodo template en el que hay un código html básico compuesto por un <div> que encierra el contenido de la /fotos/imagen que transmite en directo la cámara de seguridad, haciendo una petición al servidor que implanta la cámara en el área local. Además, también se gestiona la petición desde Telegram para ver el video en streaming, devolviendo ante dicha petición la URL del servidor donde se encuentra alojado el video en streaming de la cámara.
 
-![Alt text](image-44.png)
+![Alt text](/fotos/image-44.png)
 
 Por último, nos encontramos unos nodos auxiliares para hacer un vaciado rápido de las fotos de las bases de datos en caso de que necesitemos hacer una depuración. Estos no se utilizarán normalmente.
 
-![Alt text](image-45.png)
+![Alt text](/fotos/image-45.png)
 
 # Robustez y prevención de errores
 
@@ -666,17 +666,17 @@ https://www.icloud.com/shortcuts/addc1a6f689942379920675ab7379163.
 
 Una vez ejecutado el atajo, al darle a “añadir a pantalla de inicio” (en el menú compartir, de nuevo), se añadirá como una aplicación móvil que funciona de manera fluida y con una interfaz amigable.
 
-![Alt text](image-46.png)
+![Alt text](/fotos/image-46.png)
 
 Otro gran valor añadido de cara a mejorar el control del sistema es la integración con los asistentes virtuales como Amazon Alexa. Es completamente funcional mediante los comandos de “Enciende Led”, “Apaga Led”, “Activa Alarma”, “Desactiva alarma”, “Enciende Motor” y “Apaga Motor”. Esto es gracias a la librería node-red-contrib-alexa-home-skill y a la configuración en la aplicación de Amazon Alexa. También se destaca, que dentro de esta aplicación tenemos integrados botones de control de estos dispositivos y que cualquier elemento de casa conectada que podamos tener se puede asociar y personalizar la experiencia del usuario al máximo.
 
-![Alt text](image-47.png)
+![Alt text](/fotos/image-47.png)
 
 Como se observa en las figuras anteriores, aparece el control de las luces e interruptores en la parte superior, además de las frases que se pueden utilizar para el control. 
 
 Por otro lado, y para aumentar aún más la compatibilidad con todos los dispositivos incluyendo mejoras y funciones automatizadas, se ha implementado la conexión con los atajos de iPhone, permitiendo crear automatizaciones personales y abrir una rama prácticamente infinita de posibilidades con los dispositivos de Apple. Para hacer esto, simplemente se ha añadido una petición HTTP al flujo de uno de red y desde los atajos de iPhone se ha creado un atajo que ejecute esta petición. 
 
-![Alt text](image-48.png)
+![Alt text](/fotos/image-48.png)
 
 Por tanto, conseguiríamos activar la alarma entrando siguiente enlace
 
@@ -715,60 +715,60 @@ Una de las partes importantes de nuestro proyecto es la utilización de Telegram
 
 https://t.me/Ultrahouse3000bot
 
-![Alt text](image-49.png)
+![Alt text](/fotos/image-49.png)
 
 Una vez iniciamos el bot, este nos saluda y nos ofrece un menú de opciones con el que elegir a qué parte del control de la vivienda queremos acceder.
 
 En función de si entramos al menú de Control Domótica o Seguridad del Hogar, obtendremos las acciones disponibles a realizar en cada caso, siempre teniendo la opción de regresar al menú principal haciendo uso del botón “Volver”.
 
-![Alt text](image-50.png)
+![Alt text](/fotos/image-50.png)
 
 ### Opciones disponibles del menú de domótica
 
 A continuación, se detallan todas las opciones de control disponibles para el usuario, siendo estas:
 
 •	Encender/Apagar las luces led remotamente
-![Alt text](image-51.png)
+![Alt text](/fotos/image-51.png)
 
 •	Activar/Desactivar la alarma remotamente. Si los sensores detectan movimiento cuando la alarma está activa, nuestro bot avisa de que tenemos un intruso en casa, dándonos a elegir las opciones de acción a tomar.
-![Alt text](image-52.png)
+![Alt text](/fotos/image-52.png)
 
 •	Comprobar los datos de temperatura, humedad y luminosidad del hogar actualmente.
 
-![Alt text](image-53.png)
+![Alt text](/fotos/image-53.png)
 
 •	Controlar la velocidad del ventilador remotamente, teniendo la posibilidad de asignarle una velocidad mínima, media o máxima, y pararlo.
 
-![Alt text](image-54.png)
+![Alt text](/fotos/image-54.png)
 
 •	Consultar el último acceso a la vivienda. Además, si alguien intenta entrar en nuestra propiedad e introduce incorrectamente la clave de acceso, nuestro bot nos avisará al instante de este suceso y nos dará a elegir una serie de acciones a tomar en consecuencia, tales como enviarnos una foto tomada desde la cámara de seguridad, activar (o desactivar si ya se encuentra activa) la alarma o consultar el último acceso. Sin embargo, al introducir correctamente la clave de acceso, nuestro bot nos dará la bienvenida, nos ofrecerá activar o desactivar la alarma y encender el ventilador para refrescar el ambiente.
 
-![Alt text](image-55.png)
+![Alt text](/fotos/image-55.png)
 
 #### Opciones disponibles del menú de seguridad del hogar
 
 A continuación, se detallan todas las opciones de control disponibles para el usuario, siendo estas:
 
 •	Ver el video en directo de la cámara de seguridad. Para ello, se nos devuelve un enlace al servidor donde se está retransmitiendo dicho video, donde se requiere introducir las credenciales de acceso para acceder al mismo, medida de seguridad impuesta de cara a que solo nosotros podamos acceder a él.
-![Alt text](image-56.png)
+![Alt text](/fotos/image-56.png)
 
 •	Hacer fotos con la cámara de seguridad con o sin flash. Además, se ofrece la posibilidad de recuperar tanto la última foto realizada manualmente como la última foto realizada automáticamente.
 
-![Alt text](image-57.png)
+![Alt text](/fotos/image-57.png)
 
 •	Activar o desactivar remotamente el flash de la cámara. En el caso de que se requiera hacer una foto con o sin flash, la cámara encenderá o apagará el flash en función de su estado actual, recuperando finalmente el estado inicial del flash manual configurado mediante los botones.
 
-![Alt text](image-58.png)
+![Alt text](/fotos/image-58.png)
 
 •	Control de la posición de la cámara. Para ello, se dispone de los botones que hacen que la cámara rote hacia la derecha o hacia la izquierda, deteniendo su movimiento con la pulsación del botón “Stop”. Además, siempre se puede devolver la cámara a su posición inicial haciendo uso del botón “Centrar”.
 
-![Alt text](image-59.png)
+![Alt text](/fotos/image-59.png)
 
 ## Control mediante el Dashboard de NodeRed
 
 Para este proyecto, un Dashboard amigable es uno de los requisitos indispensables si queremos que el usuario se encuentre cómodo usando nuestro sistema. Para ello hemos implementado el Dashboard con diferentes secciones para que sea lo más intuitivo y organizado posible.
 
-![Alt text](image-60.png)
+![Alt text](/fotos/image-60.png)
 
 ### Panel General
 
@@ -782,7 +782,7 @@ En esta sección encontramos un resumen de todo lo que abarca nuestro sistema:
 
 •	En la cuarta columna aparece reflejado un resumen de las variables atmosféricas actuales dentro de la vivienda.
 
-![Alt text](image-61.png)
+![Alt text](/fotos/image-61.png)
 
 ### Panel de Seguridad
 
@@ -792,7 +792,7 @@ En esta sección encontramos toda la información referente al estado de la segu
 
 •	En la segunda columna encontramos toda la información referente al historial del control de acceso a la vivienda, el cual nos permite conocer el último acceso a la casa solo si conocemos el pin de la alarma. 
 
-![Alt text](image-62.png)
+![Alt text](/fotos/image-62.png)
 
 ### Panel de datos del ambiente
 
@@ -808,7 +808,7 @@ En esta sección encontramos toda la información referente al ambiente de la vi
 
 •	En la quinta columna encontramos el registro de todos los datos recibidos por los sensores en tiempo real.
 
-![Alt text](image-63.png)
+![Alt text](/fotos/image-63.png)
 
 ### Panel de la cámara de seguridad
 
@@ -818,7 +818,7 @@ En esta sección encontramos el sistema de visualización y control de la cámar
 
 •	En la segunda columna encontramos todos los elementos de control de la cámara. Con los botones disponibles, podemos controlar la orientación de la cámara, encender o apagar el flash, mandar una foto a Telegram, y configurar el tiempo entre tomas de seguridad que por defecto es 60 minutos.
 
-![Alt text](image-64.png)
+![Alt text](/fotos/image-64.png)
 
 ## Control mediante asistentes virtuales
 
@@ -832,7 +832,7 @@ En esta sección encontramos el sistema de visualización y control de la cámar
 
 Para la integración con Alexa se ha empleado como librería de Node-Red: “node-red-contrib-alexa-home-skill”.  Para poder emplear nodos que se conecten a nuestros dispositivos de casa, tenemos que registrarlos accediendo al siguiente enlace o bien escaneando el código QR siguiente.
 
-![Alt text](image-65.png)
+![Alt text](/fotos/image-65.png)
 
 https://alexa-node-red.bm.hardill.me.uk/
 
@@ -848,17 +848,17 @@ https://www.icloud.com/shortcuts/f43c0bdc7a494f7c88358459005c39c6
 
 Al añadirlo, aparecen los cuadros de dialogo de las figuras de la derecha. Simplemente se deben seguir los pasos indicados para la configuración del entorno, y finalmente añadir el atajo. En este caso, el token del bot de Telegram ya va añadido por defecto.
 
-![Alt text](image-66.png)
+![Alt text](/fotos/image-66.png)
 
 Una vez se tenga añadido el atajo, configurado con su respectivo chatID y nombre, se debe crear una nueva automatización personal en la app de atajos como la siguiente, tal y como se ve en las siguientes figuras.
 
-![Alt text](image-67.png)
+![Alt text](/fotos/image-67.png)
 
 Al crear esta nueva automatización personal, se seleccionará la opción salir. En el apartado de ubicación, se debe seleccionar la ubicación de “casa” o del sitio donde se encuentre el sistema de alarma. A continuación, pulse en siguiente y defina una automatización similar a la que aparece en la figura 72. El único matiz indispensable que debe tener en cuenta a la hora de configurar la automatización es el de ejecutar el atajo “Activar Alarma Ultrahouse”, pero se puede añadir además todas las automatizaciones que se deseen.
 También se puede configurar el atajo para su uso con la función nativa de IOS “Oye, Siri”. Para ello, simplemente ejecute comandos de voz tales como “Oye Siri, ejecuta el atajo Activar Alarma Ultrahouse”.
 
 Finalmente, solo resta asegurarnos de que la automatización está activada. Si es así, a partir de ese momento nos llegará un mensaje del bot de Telegram cada vez que salgamos de casa recordando el encendido de la alarma, quedando el sistema de seguridad automáticamente habilitado, tal y como se ve en la siguiente figura.
 
-![Alt text](image-68.png)
+![Alt text](/fotos/image-68.png)
 
 
