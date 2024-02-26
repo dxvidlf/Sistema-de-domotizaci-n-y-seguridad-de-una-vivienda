@@ -6,6 +6,8 @@ El proyecto se divide en dos partes fundamentales, siendo estas las correspondie
 
 Como se explicará en mayor profundidad posteriormente, el sistema de seguridad estará comprendido principalmente por una cámara con un sistema de movimiento que permitirá visualizar su entorno en 360 grados. Esta implementación también ha sido usada para la implementación de un robot móvul para la asignatua Laboratorio de Robótica. Debido a la gran complejidad de este sistema, se ha creado un repositorio a parte donde explica toda esta parte del proyecto con la profundidad que ésta requiere, siendo posible acceder a dicho repositorio a través del siguiente enlace: https://github.com/dxvidlf/Camara-para-Robot-Movil
 
+Todos los códigos mencionados en el documento se encuentran disponibles en la carpeta "Códigos".
+
 ## Introducción
 
 En la era digital actual, la conectividad y la automatización desempeñan un papel fundamental en la transformación de nuestros hogares en entornos inteligentes y seguros. Con el rápido avance de la Internet de las Cosas (IoT), la posibilidad de integrar dispositivos y sensores inteligentes en el entorno doméstico ha creado oportunidades significativas para mejorar la seguridad y la gestión eficiente de nuestros hogares.
