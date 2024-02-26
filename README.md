@@ -73,7 +73,7 @@ A continuación, se detallan las fases de configuración seguidas para la creaci
 
 ### Configuración inicial de Raspberry Pi OS
 
-El primer paso de la configuración del entorno es la instalación de Raspberry Pi OS (anteriormente conocido como Raspbian). Para ello, se ha hecho uso de la herramienta Raspberry Pi /fotos/imager, la cual se encargará de flashear nuestra tarjeta microSD con el sistema operativo que deseemos para nuestra Raspberry. Una vez completado el proceso de escritura y verificación del sistema, podemos introducir la tarjeta microSD en el dispositivo (no sin antes conectar el mismo a un teclado, ratón y monitor para visualizar la interfaz de usuario) para comenzar con las configuraciones iniciales tales como la creación de un usuario, la contraseña, zona horaria, etc.
+El primer paso de la configuración del entorno es la instalación de Raspberry Pi OS (anteriormente conocido como Raspbian). Para ello, se ha hecho uso de la herramienta Raspberry Pi imager, la cual se encargará de flashear nuestra tarjeta microSD con el sistema operativo que deseemos para nuestra Raspberry. Una vez completado el proceso de escritura y verificación del sistema, podemos introducir la tarjeta microSD en el dispositivo (no sin antes conectar el mismo a un teclado, ratón y monitor para visualizar la interfaz de usuario) para comenzar con las configuraciones iniciales tales como la creación de un usuario, la contraseña, zona horaria, etc.
 
 Tras la configuración del sistema, se configura una de las cosas más importantes del proceso, una dirección IP estática. Esa característica nos da facilidad para hacer el resto de las configuraciones posteriores según una dirección IP que sabemos que no cambiará. 
 
