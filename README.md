@@ -61,6 +61,7 @@ Esto además nos permitirá saber en qué dirección estará siempre nuestro dis
 <p align="center">
   <img src="/fotos/image-3.png">
 </p>
+
 ### Instalación de Docker y Portainer
 
 Para la instalación de todos los programas que vamos a usar en nuestro proyecto, haremos uso de Docker. Esta es una herramienta muy útil, dado que permite la instalación de contenedores en nuestro dispositivo de una forma simple y cómoda, con una gran comunidad detrás y soporte para muchas plataformas. 
